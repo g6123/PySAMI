@@ -98,7 +98,11 @@ class SmiFile:
 			sub_index = 1
 
 			while loop_index < len(self.data):
-				if self.data[loop_index][1][lang] == '&nbsp;':
+				try:
+					if self.data[loop_index][1][lang] == '&nbsp;':
+						loop_index += 1
+						continue
+				except KeyError:
 					loop_index += 1
 					continue
 
