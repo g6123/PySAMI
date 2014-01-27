@@ -51,40 +51,20 @@ class SmiFile:
 		search = lambda string, pattern: re.search(pattern, string, flags=re.I)
 
 		def split_content(string, tag):
-			result = []
-			last = False
+			threshold = '<'+tag
 
-			get_first_start = lambda string, tag: string.lower().find('<'+tag)
-			def get_second_start(string, tag):
-				offset = len(tag)+1
-				result = get_first_start(
-					string[get_first_start(string, tag)+offset:], tag
-				)
-
-				if result < 0:
-					return -1
-				else:
-					return result+offset
-
-			while not last:
-				first_start = get_first_start(string, tag)
-				second_start = get_second_start(string, tag)
-
-				if second_start < 0:
-					first = string[first_start:]
-					last = True
-				else:
-					first = string[first_start:second_start]
-					string = string[second_start:]
-
-				result.append(first.strip())
-
-			return result
+			return list(map(
+				lambda item: (threshold+item).strip(),
+				re.split(threshold, string, flags=re.I)
+			))[1:]
 
 		def parse_p(item):
 			lang = search(item, '<p(.+)class=([a-z]+)').group(2)
+
 			content = item[search(item, '<p(.+)>').end():]
-			return [lang, content.strip()]
+			content = re.sub('<br ?/?>', '\n', content.replace('\n', ''), flags=re.I).strip()
+
+			return [lang, content]
 
 		self.data = []
 		data = self.raw[
