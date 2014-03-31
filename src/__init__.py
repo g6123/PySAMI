@@ -67,9 +67,7 @@ class SmiFile:
 			return [lang, content]
 
 		self.data = []
-		data = self.raw[
-			search(self.raw, '<body>').end() : search(self.raw, '</body>').start()
-		].strip()
+		data = self.raw[search(self.raw, '<body>').end():].strip()
 		sub_index = 1
 
 		try:
