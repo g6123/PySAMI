@@ -7,7 +7,7 @@ if version_info.major < 3:
 
 from distutils.core import setup
 setup(
-	name='pysami', version='0.1',
+	name='pysami', version='0.1.5',
 	packages=['pysami'], package_dir={ 'pysami': 'src' },
 	author='유성매직', author_email='유성매직 <g6123@cys.wo.tc>',
 	description='Python library and script for converting SAMI file.',

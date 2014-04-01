@@ -67,11 +67,10 @@ class SmiFile:
 			return [lang, content]
 
 		self.data = []
-		data = self.raw[search(self.raw, '<body>').end():].strip()
 		sub_index = 1
 
 		try:
-			for item in split_content(data, 'sync'):
+			for item in split_content(self.raw, 'sync'):
 				if verbose:
 					print(str(sub_index)+' ===\n'+item+'\n')
 
