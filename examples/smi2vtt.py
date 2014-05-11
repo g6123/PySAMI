@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- #
 
 from sys import argv, stderr
-from pysami import Converter, ConversionError
+from pysami import SmiFile, ConversionError
 
 def throw(code):
 	error = ConversionError(code)
@@ -23,12 +23,13 @@ else:
 smi_filepath = argv[1]
 
 try:
-	converter = Converter(smi_filepath)
-	vtt = converter.convert('vtt')
+	smi = SmiFile(smi_filepath)
+	smi.parse()
+	vtt = smi.convert('vtt', 'KRCC')
 except ConversionError as e:
 	throw(e.code)
 except:
-	throw(-5)
+	throw(-6)
 
 try:
 	vtt_file = open(vtt_filepath, 'w')

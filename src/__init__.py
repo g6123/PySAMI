@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*- #
 
-# 변환 작업 클래스
-class Converter:
-	def __init__(self, input_file, encoding=None, verbose=False):
-		self.smi_file = SmiFile(input_file, encoding)
-		self.smi_file.parse(verbose)
-
-	def convert(self, output_type, lang='KRCC'):
-		return self.smi_file.convert(output_type, lang)
-
 # SAMI 파일 파싱 클래스
 from os.path import isfile
 from pysami.error import ConversionError
@@ -19,7 +10,7 @@ import re
 from pysami.subtitle import Subtitle
 
 class SmiFile:
-	def __init__(self, input_file, encoding):
+	def __init__(self, input_file, encoding=None):
 		self.data = None
 
 		if not isfile(input_file):
@@ -47,7 +38,7 @@ class SmiFile:
 
 		file.close()
 
-	def parse(self, verbose):
+	def parse(self, verbose=False):
 		search = lambda string, pattern: re.search(pattern, string, flags=re.I)
 
 		def split_content(string, tag):
@@ -82,9 +73,9 @@ class SmiFile:
 		except:
 			raise ConversionError(-3)
 
-	def convert(self, target, lang):
+	def convert(self, target, lang='ENCC'):
 		if self.data == None:
-			self.parse()
+			raise ConversionError(-5)
 
 		result = ''
 
