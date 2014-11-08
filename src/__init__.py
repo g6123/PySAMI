@@ -53,7 +53,10 @@ class SmiFile:
 			lang = search(item, '<p(.+)class=([a-z]+)').group(2)
 
 			content = item[search(item, '<p(.+)>').end():]
-			content = re.sub('<br ?/?>', '\n', content.replace('\n', ''), flags=re.I).strip()
+			content = content.replace('\n', '')
+			content = re.sub('<br ?/?>', '\n', content, flags=re.I)
+			content = re.sub('<.*?>','', content)
+			content = content.strip()
 
 			return [lang, content]
 
@@ -80,7 +83,7 @@ class SmiFile:
 		result = ''
 
 		if target == 'vtt':
-			result += 'WEBVTT FILE'
+			result += 'WEBVTT'
 
 			loop_index = 0
 			sub_index = 1
