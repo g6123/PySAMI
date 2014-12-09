@@ -1,7 +1,7 @@
 PySAMI
 ======
 
-This python library allows you to parse and convert [SAMI files](http://msdn.microsoft.com/en-us/library/ms971327.aspx).
+This Python 3 library allows you to parse and convert [SAMI files](http://msdn.microsoft.com/en-us/library/ms971327.aspx).
 Currently (v0.1.5) only conversion to WebVTT is supported.
 
 Installation
