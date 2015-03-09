@@ -35,4 +35,6 @@ class Subtitle:
 			m = 0
 			h = 0
 
+		ms = '{:<03}'.format(ms)
+
 		return str(h).zfill(2)+':'+str(m).zfill(2)+':'+str(s).zfill(2)+'.'+ms
